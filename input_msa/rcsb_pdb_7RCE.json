@@ -1,0 +1,32 @@
+{ 
+  "name": "rcsb_pdb_7rce", 
+  "modelSeeds": [ 
+    1, 
+    2, 
+    3, 
+    4, 
+    5 
+  ], 
+  "dialect": "alphafold3", 
+  "version": 1, 
+  "sequences": [ 
+    { 
+      "protein": { 
+        "id": "A",
+        "sequence": "MASSRRESINPWILTGFADAEGSFGLSILNRNRGTARYHTRLSFTIMLHNKDKSILENIQSTWKVGSILNNGDHYVSLVVYRFEDLKVIIDHFEKYPLITQKLGDYKLFKQAFSVMENKEHLKENGIKELVRIKAKMNWGLNDELKKAFPENISKERPLINKNIPNFKWLAGFTSGDGSFFVRLRKSNVNARVRVQLVFEISQHIRDKNLMNSLITYLGCGHIYEGNKSERSWLQFRVEKFSDINDKIIPVFQENTLIGVKLEDFEDWCKVAKLIEEKKHLTESGLDEIKKIKLNMNKGR" 
+      } 
+    }, 
+    { 
+      "dna": { 
+        "id": "B", 
+        "sequence": "GGGGGCATGCAGATCCCACAGGCGCG" 
+      } 
+    }, 
+    { 
+      "dna": { 
+        "id": "C", 
+        "sequence": "CCGCGCCTGTGGGATCTGCATGCCCC" 
+      } 
+    } 
+  ] 
+}

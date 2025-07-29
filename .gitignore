@@ -1,2 +1,14 @@
-*.json
+# Large data files
+6QNR_subset_data.json
+6QNR_subset.json
+
+# Validation results
 results/
+output_*/
+benchmark_*/
+
+# Test files
+test_*.png
+test_*.pdf
+test_*.svg
+*_validation.png
