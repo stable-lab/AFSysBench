@@ -45,29 +45,29 @@ cd AFSysBench
 
 2. Configure your system:
 ```bash
-cp myenv.config.template myenv.config
+cp benchmark.config.template myenv.config
 # Edit myenv.config with your paths
 ```
 
 3. Run your first benchmark:
 ```bash
 # MSA benchmark
-python af_bench_runner_updated.py -c myenv.config msa -i 2PV7.json -t 4
+python ./runner -c myenv.config msa -i 2PV7.json -t 4
 
 # Inference benchmark
-python af_bench_runner_updated.py -c myenv.config inference -i 2pv7_data.json -t 4
+python ./runner -c myenv.config inference -i 2pv7_data.json -t 4
 ```
 
 ### For Large Structures (Unified Memory)
 
 ```bash
 # Edit your config file
-nano my_system.config
+nano myenv.config
 # Change: UNIFIED_MEMORY=false
 # To:     UNIFIED_MEMORY=true
 
 # Run 6QNR on RTX 4080
-python af_bench_runner_updated.py -c my_system.config inference -i 6QNR_subset_data.json -t 1
+python ./runner -c myenv.config inference -i 6QNR_subset_data.json -t 1
 ```
 
 ## 📖 Documentation
@@ -108,10 +108,10 @@ AFSysBench/
 ### Basic Benchmarking
 ```bash
 # Run MSA benchmark with 8 threads
-python af_bench_runner_updated.py -c myenv.config msa -i rcsb_pdb_7RCE.json -t 8
+python ./runner -c myenv.config msa -i rcsb_pdb_7RCE.json -t 8
 
 # Run inference with profiling
-python af_bench_runner_updated.py -c myenv.config inference -i 1yy9_data.json -t 4 -p nsys
+python ./runner -c myenv.config inference -i 1yy9_data.json -t 4 -p nsys
 ```
 
 ### Monitoring and Profiling
