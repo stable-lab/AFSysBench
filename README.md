@@ -45,7 +45,7 @@ cd AFSysBench
 
 2. Configure your system:
 ```bash
-cp myenv.config.template myenv.config
+cp benchmark.config.template myenv.config
 # Edit myenv.config with your paths
 ```
 
