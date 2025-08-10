@@ -62,12 +62,12 @@ python ./runner -c myenv.config inference -i 2pv7_data.json -t 4
 
 ```bash
 # Edit your config file
-nano my_system.config
+nano myenv.config
 # Change: UNIFIED_MEMORY=false
 # To:     UNIFIED_MEMORY=true
 
 # Run 6QNR on RTX 4080
-python ./runner -c my_system.config inference -i 6QNR_subset_data.json -t 1
+python ./runner -c myenv.config inference -i 6QNR_subset_data.json -t 1
 ```
 
 ## 📖 Documentation
