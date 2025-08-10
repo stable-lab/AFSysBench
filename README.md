@@ -108,10 +108,10 @@ AFSysBench/
 ### Basic Benchmarking
 ```bash
 # Run MSA benchmark with 8 threads
-python af_bench_runner_updated.py -c myenv.config msa -i rcsb_pdb_7RCE.json -t 8
+python ./runner -c myenv.config msa -i rcsb_pdb_7RCE.json -t 8
 
 # Run inference with profiling
-python af_bench_runner_updated.py -c myenv.config inference -i 1yy9_data.json -t 4 -p nsys
+python ./runner -c myenv.config inference -i 1yy9_data.json -t 4 -p nsys
 ```
 
 ### Monitoring and Profiling
