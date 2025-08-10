@@ -52,10 +52,10 @@ cp benchmark.config.template myenv.config
 3. Run your first benchmark:
 ```bash
 # MSA benchmark
-python af_bench_runner_updated.py -c myenv.config msa -i 2PV7.json -t 4
+python ./runner -c myenv.config msa -i 2PV7.json -t 4
 
 # Inference benchmark
-python af_bench_runner_updated.py -c myenv.config inference -i 2pv7_data.json -t 4
+python ./runner -c myenv.config inference -i 2pv7_data.json -t 4
 ```
 
 ### For Large Structures (Unified Memory)
