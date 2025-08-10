@@ -12,6 +12,8 @@ A modular, production-ready benchmarking system for evaluating AlphaFold 3 perfo
 - **Unified Memory Support** - Run large structures (e.g., 6QNR) on consumer GPUs
 - **Multi-threading Analysis** - Test performance across thread configurations
 - **Hardware Profiling** - Built-in support for NVIDIA Nsight, Linux perf, and custom profilers
+- **Real-time Monitoring** - Live system resource monitoring with `monitor_realtime.sh`
+- **NUMA Profiling** - Advanced NUMA and PCM performance analysis
 - **Automated Results** - CSV generation with master results tracking
 - **Docker Integration** - Consistent environment across systems
 
@@ -84,11 +86,19 @@ AFSysBench/
 ├── af_bench_runner_updated.py      # Main orchestrator
 ├── scripts/
 │   ├── benchmark_msa_modular.sh    # MSA benchmarking logic
-│   └── benchmark_inference_modular.sh # Inference benchmarking
+│   ├── benchmark_inference_modular.sh # Inference benchmarking
+│   ├── profiling_runner.sh         # Profiling orchestrator
+│   └── result_collector.sh         # Results aggregation
 ├── lib/
 │   ├── docker_utils.sh             # Docker management
-│   ├── logging_utils.sh            # Logging utilities
-│   └── gpu_memory_manager.py       # Memory management
+│   ├── logging.sh                  # Logging utilities
+│   ├── gpu_memory_manager.py       # Memory management
+│   ├── monitoring.sh               # System monitoring
+│   └── result_parser.sh            # Results parsing
+├── monitor_realtime.sh             # Real-time monitoring
+├── run_inference_perf.sh           # Performance benchmarking
+├── run_numa_pcm_profiling.sh       # NUMA/PCM profiling
+├── track_progress.py               # Progress tracking
 ├── docs/                           # Documentation
 └── results/                        # Benchmark results (generated)
 ```
@@ -102,6 +112,21 @@ python af_bench_runner_updated.py -c myenv.config msa -i rcsb_pdb_7RCE.json -t 8
 
 # Run inference with profiling
 python af_bench_runner_updated.py -c myenv.config inference -i 1yy9_data.json -t 4 -p nsys
+```
+
+### Monitoring and Profiling
+```bash
+# Real-time system monitoring
+./monitor_realtime.sh
+
+# NUMA and PCM profiling
+./run_numa_pcm_profiling.sh myenv.config 2pv7_data.json
+
+# Performance inference benchmarking
+./run_inference_perf.sh myenv.config
+
+# Track progress of running jobs
+python track_progress.py --config myenv.config --job-id inference_2024
 ```
 
 ### Batch Processing
