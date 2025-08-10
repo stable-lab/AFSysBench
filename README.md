@@ -66,8 +66,8 @@ nano my_system.config
 # Change: UNIFIED_MEMORY=false
 # To:     UNIFIED_MEMORY=true
 
-# Run 6QNR on RTX 4080
-python ./runner -c my_system.config inference -i 6QNR_subset_data.json -t 1
+# Run 1YY9 on RTX 4080
+python ./runner -c my_system.config inference -i 1yy9.json -t 1
 ```
 
 ## 📖 Documentation
