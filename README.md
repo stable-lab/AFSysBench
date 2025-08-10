@@ -67,7 +67,7 @@ nano my_system.config
 # To:     UNIFIED_MEMORY=true
 
 # Run 6QNR on RTX 4080
-python af_bench_runner_updated.py -c my_system.config inference -i 6QNR_subset_data.json -t 1
+python ./runner -c my_system.config inference -i 6QNR_subset_data.json -t 1
 ```
 
 ## 📖 Documentation
