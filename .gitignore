@@ -1,10 +1,63 @@
-# Validation results
+# Results and outputs
 results/
-output_*/
+output*/
 benchmark_*/
+statistical_results_*/
+*_profile_*/
+*_analysis_*/
+
+# Log files
+*.log
+*.tmp
+logs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.pytest_cache/
+
+# System files
+.DS_Store
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
 
 # Test files
 test_*.png
 test_*.pdf
 test_*.svg
 *_validation.png
+
+# Data files (keep input files)
+*.csv
+!input_*/*.json
+
+# Archives
+*.tar.gz
+*.zip
+*.tar
+*.gz
+
+# Docker
+*.tar.gz
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Configuration (keep templates)
+*.config
+!*.config.template
+myenv.config
+
+# Large model files
+*.h5
+*.ckpt
+*.pth
