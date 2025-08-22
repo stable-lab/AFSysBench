@@ -21,10 +21,14 @@ A systematic benchmarking suite for evaluating [AlphaFold 3](https://github.com/
 ## 📊 Proven Performance
 
 Successfully tested on:
-- **RTX 4080 (16GB)** - 6QNR inference in ~8 minutes with unified memory
-- **H100 (80GB)** - Full benchmark suite without unified memory
-- **AMD Ryzen 9 7900X** - Multi-threaded MSA performance evaluation
-- **Intel Xeon** - Server-grade benchmarking
+
+**Server System:**
+- **Intel Xeon + H100 (80GB)** - Full benchmark suite without unified memory
+- **Server-grade performance** - Optimal for large structure analysis
+
+**Desktop System:**  
+- **AMD Ryzen 9 7900X + RTX 4080 (16GB)** - 6QNR inference in ~8 minutes with unified memory
+- **Consumer-grade accessibility** - Efficient multi-threaded MSA performance
 
 ## 🏃 Quick Start
 
