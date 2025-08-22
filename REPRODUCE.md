@@ -252,10 +252,12 @@ For reproduction issues:
 If you use AFSysBench in your research, please cite:
 
 ```bibtex
-@article{afsysbench2024,
+@misc{afsysbench2024,
   title={AFSysBench: Systematic Benchmarking of AlphaFold 3 for Optimized Deployment},
-  author={...},
-  journal={...},
-  year={2024}
+  author={[To be updated]},
+  year={2024},
+  note={Manuscript in preparation. Citation details will be updated upon publication.}
 }
 ```
+
+*Note: This work is currently under review. Full citation details will be provided upon publication.*
