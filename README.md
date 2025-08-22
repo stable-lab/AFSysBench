@@ -136,15 +136,25 @@ python runner -c benchmark.config profile -i 1yy9_data.json -p nsys -s inference
 ./run_numa_pcm_profiling.sh myenv.config 2pv7_data.json
 
 
-# Performance profiling (add PROFILING_TOOL to config file)
-# Add to benchmark.config: PROFILING_TOOL="perf_stat"
+# Performance profiling (edit config file)
+# Set PERF_STAT=true in benchmark.config for CPU performance statistics
 python runner -c benchmark.config inference -i 2pv7_data.json -t 4
 
-# Or use perf_record for detailed profiling
-# Add to benchmark.config: PROFILING_TOOL="perf_record"
+# Or set PERF_RECORD=true for detailed profiling
 python runner -c benchmark.config msa -i 2PV7.json -t 4
 
-```
+
+# Note: Profiling requires specialized Docker images with tools pre-installed:
+#   For PERF_STAT/PERF_RECORD: DOCKER_IMAGE="alphafold3" -> auto-selects "alphafold3:perf"
+#   For NSYS profiling: requires "alphafold3:nsys" image
+#   For uProf profiling: requires "alphafold3:uprof" image
+#
+# To build profiling images, modify Dockerfile to install tools:
+#   perf: apt-get install linux-tools-generic
+#   nsys: Install NVIDIA Nsight Systems
+#   uprof: Install AMD uProf toolkit
+#
+# Alternative: Install all profiling tools in default image for unified setup
 
 ```
 

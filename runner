@@ -102,11 +102,18 @@ class BenchmarkConfig:
                     elif key == 'THREAD_COUNTS':
                         # Value should already be cleaned by the main parser
                         config.thread_counts = [int(x.strip()) for x in value.split()]
-                    elif key == 'PROFILING_TOOL':
-                        if value:
-                            config.profiling_tool = value
+                    elif key == 'PERF_STAT':
+                        if value.lower() == 'true':
+                            config.profiling_tool = "perf_stat"
                             config.profiling_mode = True
                             config.run_purpose = "profiling"
+                            print(f"[CONFIG] Converting PERF_STAT=true to PROFILING_TOOL=perf_stat")
+                    elif key == 'PERF_RECORD':
+                        if value.lower() == 'true':
+                            config.profiling_tool = "perf_record"
+                            config.profiling_mode = True
+                            config.run_purpose = "profiling"
+                            print(f"[CONFIG] Converting PERF_RECORD=true to PROFILING_TOOL=perf_record")
                     elif key == 'SYSTEM_MONITOR':
                         config.system_monitor = value.lower() == 'true'
                     elif key == 'GPU_MONITOR':
