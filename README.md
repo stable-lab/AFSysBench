@@ -143,7 +143,7 @@ python runner -c benchmark.config inference -i 6QNR_subset_data.json -t 1
 
 Results are automatically saved in CSV format:
 - `results/master_results.csv` - Consolidated benchmark data
-- `output_*/inference_results_*.csv` - Individual run results
+- `output_*/results_*.csv` - Individual run results
 - `output_*/gpu_monitoring.csv` - GPU utilization metrics
 
 ## 🛠️ Configuration
@@ -190,13 +190,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 If you use AFSysBench in your research, please cite:
 
 ```bibtex
-@article{afsysbench2024,
-  title={AFSysBench: Systematic Benchmarking of AlphaFold 3 for Production Deployment},
-  author={...},
-  journal={...},
-  year={2024}
+@misc{afsysbench2025,
+  title={AFSysBench: Systematic Benchmarking of AlphaFold 3 for Optimized Deployment},
+  author={[To be updated]},
+  year={2024},
+  note={Manuscript in preparation. Citation details will be updated upon publication.}
 }
 ```
+
+*Note: This work is currently under review. Full citation details will be provided upon publication.*
 
 ## 📄 AlphaFold 3 Reference
 
