@@ -81,16 +81,24 @@ python af_bench_runner_updated.py -c my_system.config inference -i 6QNR_subset_d
 
 ```
 AFSysBench/
-├── af_bench_runner_updated.py      # Main orchestrator
+├── runner                           # Main Python orchestrator (executable)
 ├── scripts/
 │   ├── benchmark_msa_modular.sh    # MSA benchmarking logic
 │   └── benchmark_inference_modular.sh # Inference benchmarking
 ├── lib/
+│   ├── config.sh                   # Configuration management
 │   ├── docker_utils.sh             # Docker management
-│   ├── logging_utils.sh            # Logging utilities
-│   └── gpu_memory_manager.py       # Memory management
-├── docs/                           # Documentation
-└── results/                        # Benchmark results (generated)
+│   ├── gpu_memory_manager.py       # GPU memory management
+│   ├── logging.sh                  # Logging utilities
+│   ├── monitoring.sh               # System monitoring
+│   ├── result_parser.sh            # Result parsing and analysis
+│   └── validation.sh               # System validation
+├── input_msa/                      # MSA input files
+├── input_inference/                # Inference input files
+├── output/                         # MSA results (generated)
+├── output_inference/               # Inference results (generated)
+├── results/                        # Aggregated benchmark results
+└── docs/                           # Documentation
 ```
 
 ## 🔬 Usage Examples

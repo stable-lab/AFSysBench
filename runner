@@ -345,55 +345,6 @@ class AFBenchRunner:
             'stderr': result.stderr if result.returncode != 0 else None
         }
         
-    def run_profiling(self, input_file: str, profiling_tool: str, stage: str,
-                      threads: Optional[int] = None, output_dir: Optional[str] = None) -> Dict[str, Any]:
-        """Run profiling using the new profiling_runner.sh script"""
-        self.logger.info(f"Running {profiling_tool} profiling for {input_file}")
-        
-        # Auto-determine input path based on stage
-        if not os.path.isabs(input_file):
-            if stage == 'msa' and not input_file.startswith('input_msa/'):
-                full_input_path = f"input_msa/{input_file}"
-            elif stage == 'inference' and not input_file.startswith('input_inference/'):
-                full_input_path = f"input_inference/{input_file}"
-            else:
-                full_input_path = input_file
-        else:
-            full_input_path = input_file
-        
-        # Build command
-        script_path = self._get_script_path('profiling_runner.sh')
-        cmd = [script_path, "-c", self.config.__dict__.get('config_file', 'myenv.config')]
-        
-        # Add profiling tool and stage
-        cmd.extend(["-p", profiling_tool, "-s", stage])
-        
-        # Add thread count if specified
-        if threads:
-            cmd.extend(["-t", str(threads)])
-            
-        # Add output directory if specified
-        if output_dir:
-            cmd.extend(["-o", output_dir])
-            
-        # Add input file
-        cmd.append(full_input_path)
-        
-        # Run the profiling
-        start_time = time.time()
-        result = self._run_command(cmd)
-        duration = time.time() - start_time
-        
-        return {
-            'input_file': input_file,
-            'profiling_tool': profiling_tool,
-            'stage': stage,
-            'command': ' '.join(cmd),
-            'duration': duration,
-            'success': result.returncode == 0,
-            'stdout': result.stdout if result.returncode == 0 else None,
-            'stderr': result.stderr if result.returncode != 0 else None
-        }
         
     def collect_results(self, input_dir: str, result_type: str = 'all',
                        output_format: str = 'csv') -> Dict[str, Any]:
@@ -508,19 +459,6 @@ def main():
                              help='Thread counts to test')
     batch_parser.add_argument('-n', '--name', help='Batch name')
     
-    # Profiling command
-    prof_parser = subparsers.add_parser('profile', help='Run with profiling')
-    prof_parser.add_argument('-i', '--input', required=True,
-                            help='Input file to profile')
-    prof_parser.add_argument('-p', '--tool', required=True,
-                            choices=['perf_stat', 'perf_record', 'nsys', 'uprof', 'memory_peak'],
-                            help='Profiling tool to use')
-    prof_parser.add_argument('-s', '--stage', required=True,
-                            choices=['msa', 'inference'],
-                            help='Stage to profile')
-    prof_parser.add_argument('-t', '--threads', type=int,
-                            help='Thread count')
-    prof_parser.add_argument('-o', '--output', help='Output directory')
     
     # Collect results command
     collect_parser = subparsers.add_parser('collect', help='Collect and aggregate results')
@@ -647,21 +585,6 @@ def main():
                 if result['stderr']:
                     print(f"Error: {result['stderr']}")
                     
-        elif args.command == 'profile':
-            result = runner.run_profiling(
-                args.input,
-                args.tool,
-                args.stage,
-                args.threads,
-                args.output
-            )
-            
-            if result['success']:
-                print(f"✓ {args.tool} profiling completed in {result['duration']:.2f}s")
-            else:
-                print(f"✗ {args.tool} profiling failed")
-                if result['stderr']:
-                    print(f"Error: {result['stderr']}")
                     
         elif args.command == 'collect':
             result = runner.collect_results(
