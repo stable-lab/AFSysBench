@@ -21,10 +21,14 @@ A systematic benchmarking suite for evaluating [AlphaFold 3](https://github.com/
 ## 📊 Proven Performance
 
 Successfully tested on:
-- **RTX 4080 (16GB)** - 6QNR inference in ~8 minutes with unified memory
-- **H100 (80GB)** - Full benchmark suite without unified memory
-- **AMD Ryzen 9 7900X** - Multi-threaded MSA performance evaluation
-- **Intel Xeon** - Server-grade benchmarking
+
+**Server System:**
+- **Intel Xeon + H100 (80GB)** - Full benchmark suite without unified memory
+- **Server-grade performance** - Optimal for large structure analysis
+
+**Desktop System:**  
+- **AMD Ryzen 9 7900X + RTX 4080 (16GB)** - 6QNR inference in ~8 minutes with unified memory
+- **Consumer-grade accessibility** - Efficient multi-threaded MSA performance
 
 ## 🏃 Quick Start
 
@@ -81,24 +85,31 @@ python runner -c benchmark.config inference -i 6QNR_subset_data.json -t 1
 
 ```
 AFSysBench/
-├── af_bench_runner_updated.py      # Main orchestrator
+├── runner                           # Main Python orchestrator (executable)
 ├── scripts/
 │   ├── benchmark_msa_modular.sh    # MSA benchmarking logic
 │   ├── benchmark_inference_modular.sh # Inference benchmarking
 │   ├── profiling_runner.sh         # Profiling orchestrator
 │   └── result_collector.sh         # Results aggregation
 ├── lib/
+│   ├── config.sh                   # Configuration management
 │   ├── docker_utils.sh             # Docker management
+│   ├── gpu_memory_manager.py       # GPU memory management
 │   ├── logging.sh                  # Logging utilities
-│   ├── gpu_memory_manager.py       # Memory management
 │   ├── monitoring.sh               # System monitoring
-│   └── result_parser.sh            # Results parsing
-├── monitor_realtime.sh             # Real-time monitoring
+│   ├── result_parser.sh            # Result parsing and analysis
+│   └── validation.sh               # System validation
+├── input_msa/                      # MSA input files
+├── input_inference/                # Inference input files
+├── output_msa/                     # MSA benchmark results (generated)
+├── output_inference/               # Inference benchmark results (generated)
+├── results/                        # Aggregated benchmark results
+├── monitor_realtime.sh             # Real-time system monitoring
+├── run_statistical_benchmarks.sh   # Comprehensive statistical analysis
 ├── run_inference_perf.sh           # Performance benchmarking
 ├── run_numa_pcm_profiling.sh       # NUMA/PCM profiling
-├── track_progress.py               # Progress tracking
-├── docs/                           # Documentation
-└── results/                        # Benchmark results (generated)
+├── run_full_msa_validation.sh      # MSA validation suite
+└── docs/                           # Documentation
 ```
 
 ## 🔬 Usage Examples
