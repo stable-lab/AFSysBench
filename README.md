@@ -137,8 +137,6 @@ python runner -c benchmark.config profile -i 1yy9_data.json -p nsys -s inference
 # Performance inference benchmarking
 ./run_inference_perf.sh myenv.config
 
-# Track progress of running jobs
-python track_progress.py --config myenv.config --job-id inference_2024
 ```
 
 ### Large Structure Processing
