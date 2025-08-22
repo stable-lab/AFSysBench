@@ -101,8 +101,8 @@ AFSysBench/
 │   └── validation.sh               # System validation
 ├── input_msa/                      # MSA input files
 ├── input_inference/                # Inference input files
-├── output/                         # MSA results (generated)
-├── output_inference/               # Inference results (generated)
+├── output_msa/                     # MSA benchmark results (generated)
+├── output_inference/               # Inference benchmark results (generated)
 ├── results/                        # Aggregated benchmark results
 ├── monitor_realtime.sh             # Real-time system monitoring
 ├── run_statistical_benchmarks.sh   # Comprehensive statistical analysis
@@ -123,33 +123,21 @@ python runner -c benchmark.config msa -i rcsb_pdb_7RCE.json -t 8
 python runner -c benchmark.config inference -i 1yy9_data.json -t 4
 
 # Run with profiling
-python runner -c benchmark.config profile -i 1yy9_data.json -p nsys -s inference
+python runner -c benchmark.config profile -i 2pv7_data.json -p nsys -s inference
 ```
 
-### Monitoring and Profiling
+### Advanced Configuration
 ```bash
-# Real-time system monitoring
-./monitor_realtime.sh
-
-# NUMA and PCM profiling
-./run_numa_pcm_profiling.sh myenv.config 2pv7_data.json
-
-# Performance inference benchmarking
-./run_inference_perf.sh myenv.config
+# Modify benchmark.config for your system
+cp benchmark.config.template benchmark.config
+# Edit: ALPHAFOLD_DB_PATH, CUDA_VISIBLE_DEVICES, etc.
 
 # Track progress of running jobs
 python track_progress.py --config myenv.config --job-id inference_2024
 ```
 
-### Batch Processing
-```bash
-# Process multiple samples
-for sample in 2PV7 7RCE 1YY9; do
-    python runner -c benchmark.config msa -i ${sample}.json -t 4
-done
-```
-
 ### Large Structure Processing
+
 ```bash
 # Edit config file to enable unified memory
 nano benchmark.config
