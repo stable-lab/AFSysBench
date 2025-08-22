@@ -40,51 +40,6 @@ nano my_system.config
 python af_bench_runner_updated.py -c my_system.config inference -i 6QNR_subset_data.json -t 1
 ```
 
-## Batch Processing
-
-### Multiple Samples
-```bash
-# Process multiple proteins
-SAMPLES="2PV7 7RCE 1YY9 promo"
-
-for sample in $SAMPLES; do
-    echo "Processing $sample..."
-    
-    # MSA benchmark
-    python af_bench_runner_updated.py -c my_system.config msa -i ${sample}.json -t 4
-    
-    # Inference benchmark
-    python af_bench_runner_updated.py -c my_system.config inference -i ${sample}_data.json -t 4
-done
-```
-
-### Complete Benchmark Suite
-```bash
-# Run comprehensive benchmarks
-SAMPLES=(
-    "2PV7:2pv7_data"
-    "7RCE:rcsb_pdb_7rce_data"  
-    "1YY9:1yy9_data"
-    "promo:promo_data"
-)
-
-THREADS="1 2 4 8"
-
-for entry in "${SAMPLES[@]}"; do
-    IFS=':' read -r msa_file inf_file <<< "$entry"
-    
-    for t in $THREADS; do
-        echo "Processing $msa_file with $t threads..."
-        
-        # MSA
-        python af_bench_runner_updated.py -c my_system.config msa -i ${msa_file}.json -t $t
-        
-        # Inference  
-        python af_bench_runner_updated.py -c my_system.config inference -i ${inf_file}.json -t $t
-    done
-done
-```
-
 ## Profiling Examples
 
 ### NVIDIA Nsight Systems
