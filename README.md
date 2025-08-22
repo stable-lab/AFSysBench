@@ -21,14 +21,10 @@ A systematic benchmarking suite for evaluating [AlphaFold 3](https://github.com/
 ## 📊 Proven Performance
 
 Successfully tested on:
-
-**Server System:**
-- **Intel Xeon + H100 (80GB)** - Full benchmark suite without unified memory
-- **Server-grade performance** - Optimal for large structure analysis
-
-**Desktop System:**  
-- **AMD Ryzen 9 7900X + RTX 4080 (16GB)** - 6QNR inference in ~8 minutes with unified memory
-- **Consumer-grade accessibility** - Efficient multi-threaded MSA performance
+- **RTX 4080 (16GB)** - 6QNR inference in ~8 minutes with unified memory
+- **H100 (80GB)** - Full benchmark suite without unified memory
+- **AMD Ryzen 9 7900X** - Multi-threaded MSA performance evaluation
+- **Intel Xeon** - Server-grade benchmarking
 
 ## 🏃 Quick Start
 
@@ -85,31 +81,24 @@ python runner -c benchmark.config inference -i 6QNR_subset_data.json -t 1
 
 ```
 AFSysBench/
-├── runner                           # Main Python orchestrator (executable)
+├── af_bench_runner_updated.py      # Main orchestrator
 ├── scripts/
 │   ├── benchmark_msa_modular.sh    # MSA benchmarking logic
 │   ├── benchmark_inference_modular.sh # Inference benchmarking
 │   ├── profiling_runner.sh         # Profiling orchestrator
 │   └── result_collector.sh         # Results aggregation
 ├── lib/
-│   ├── config.sh                   # Configuration management
 │   ├── docker_utils.sh             # Docker management
-│   ├── gpu_memory_manager.py       # GPU memory management
 │   ├── logging.sh                  # Logging utilities
+│   ├── gpu_memory_manager.py       # Memory management
 │   ├── monitoring.sh               # System monitoring
-│   ├── result_parser.sh            # Result parsing and analysis
-│   └── validation.sh               # System validation
-├── input_msa/                      # MSA input files
-├── input_inference/                # Inference input files
-├── output_msa/                     # MSA benchmark results (generated)
-├── output_inference/               # Inference benchmark results (generated)
-├── results/                        # Aggregated benchmark results
-├── monitor_realtime.sh             # Real-time system monitoring
-├── run_statistical_benchmarks.sh   # Comprehensive statistical analysis
+│   └── result_parser.sh            # Results parsing
+├── monitor_realtime.sh             # Real-time monitoring
 ├── run_inference_perf.sh           # Performance benchmarking
 ├── run_numa_pcm_profiling.sh       # NUMA/PCM profiling
-├── run_full_msa_validation.sh      # MSA validation suite
-└── docs/                           # Documentation
+├── track_progress.py               # Progress tracking
+├── docs/                           # Documentation
+└── results/                        # Benchmark results (generated)
 ```
 
 ## 🔬 Usage Examples
@@ -123,21 +112,25 @@ python runner -c benchmark.config msa -i rcsb_pdb_7RCE.json -t 8
 python runner -c benchmark.config inference -i 1yy9_data.json -t 4
 
 # Run with profiling
-python runner -c benchmark.config profile -i 2pv7_data.json -p nsys -s inference
+python runner -c benchmark.config profile -i 1yy9_data.json -p nsys -s inference
 ```
 
-### Advanced Configuration
+### Monitoring and Profiling
 ```bash
-# Modify benchmark.config for your system
-cp benchmark.config.template benchmark.config
-# Edit: ALPHAFOLD_DB_PATH, CUDA_VISIBLE_DEVICES, etc.
+# Real-time system monitoring
+./monitor_realtime.sh
+
+# NUMA and PCM profiling
+./run_numa_pcm_profiling.sh myenv.config 2pv7_data.json
+
+# Performance inference benchmarking
+./run_inference_perf.sh myenv.config
 
 # Track progress of running jobs
 python track_progress.py --config myenv.config --job-id inference_2024
 ```
 
 ### Large Structure Processing
-
 ```bash
 # Edit config file to enable unified memory
 nano benchmark.config
