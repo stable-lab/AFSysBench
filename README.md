@@ -211,18 +211,6 @@ If you use AFSysBench in your research, please cite:
 
 *Note: This work is currently under review. Full citation details will be provided upon publication.*
 
-## 📄 AlphaFold 3 Reference
-
-```bibtex
-@article{alphafold3_2024,
-  title={Accurate structure prediction of biomolecular interactions with AlphaFold 3},
-  author={Abramson, Josh and others},
-  journal={Nature},
-  year={2024},
-  doi={10.1038/s41586-024-07487-w}
-}
-```
-
 ## 📞 Support
 
 - **Issues**: [GitHub Issues](https://github.com/stable-lab/AFSysBench/issues)
