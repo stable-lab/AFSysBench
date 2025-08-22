@@ -135,8 +135,14 @@ python runner -c benchmark.config profile -i 1yy9_data.json -p nsys -s inference
 # NUMA and PCM profiling
 ./run_numa_pcm_profiling.sh myenv.config 2pv7_data.json
 
-# Performance inference benchmarking
-./run_inference_perf.sh myenv.config
+
+# Performance profiling (add PROFILING_TOOL to config file)
+# Add to benchmark.config: PROFILING_TOOL="perf_stat"
+python runner -c benchmark.config inference -i 2pv7_data.json -t 4
+
+# Or use perf_record for detailed profiling
+# Add to benchmark.config: PROFILING_TOOL="perf_record"
+python runner -c benchmark.config msa -i 2PV7.json -t 4
 
 ```
 
