@@ -5,7 +5,7 @@
 
 # ===== System Information =====
 SYSTEM_NAME="my_system"                      # Your system name
-SYSTEM_TYPE="workstation"                    # workstation/gpu
+SYSTEM_TYPE="cpu"                            # cpu/gpu
 CPU_ARCHITECTURE="amd"                       # amd/intel
 
 # ===== Paths (MUST BE EDITED) =====

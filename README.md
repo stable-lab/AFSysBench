@@ -1,10 +1,11 @@
 # AFSysBench - AlphaFold 3 System Benchmarking
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![Docker](https://img.shields.io/badge/docker-required-blue.svg)](https://www.docker.com/)
+[![AlphaFold 3](https://img.shields.io/badge/AlphaFold-3-green.svg)](https://github.com/google-deepmind/alphafold3)
 
-A modular, production-ready benchmarking system for evaluating AlphaFold 3 performance across different hardware configurations.
+A systematic benchmarking suite for evaluating [AlphaFold 3](https://github.com/google-deepmind/alphafold3) performance across different hardware configurations. **No external Python dependencies required!**
 
 ## 🚀 Key Features
 
@@ -12,6 +13,8 @@ A modular, production-ready benchmarking system for evaluating AlphaFold 3 perfo
 - **Unified Memory Support** - Run large structures (e.g., 6QNR) on consumer GPUs
 - **Multi-threading Analysis** - Test performance across thread configurations
 - **Hardware Profiling** - Built-in support for NVIDIA Nsight, Linux perf, and custom profilers
+- **Real-time Monitoring** - Live system resource monitoring with `monitor_realtime.sh`
+- **NUMA Profiling** - Advanced NUMA and PCM performance analysis
 - **Automated Results** - CSV generation with master results tracking
 - **Docker Integration** - Consistent environment across systems
 
@@ -27,11 +30,10 @@ Successfully tested on:
 
 ### Prerequisites
 
-- Docker with GPU support
-- NVIDIA drivers (550.54+ recommended)
-- Python 3.8+
-- AlphaFold 3 Docker image
-- 32GB+ system RAM (for unified memory)
+- **AlphaFold 3**: Official implementation from [google-deepmind/alphafold3](https://github.com/google-deepmind/alphafold3)
+- **Hardware**: NVIDIA GPU (16GB+ VRAM), 64GB+ RAM, 3TB+ storage for databases
+- **Software**: Docker 20.10+, CUDA 12.0+, Python 3.10+ (for AF3 compatibility)
+- **No additional Python packages needed** for benchmarking - uses only standard library!
 
 ### Installation
 
@@ -43,38 +45,36 @@ cd AFSysBench
 
 2. Configure your system:
 ```bash
-cp myenv.config.template myenv.config
-# Edit myenv.config with your paths
+cp benchmark.config.template benchmark.config
+# Edit benchmark.config with your AF3 paths
 ```
 
-3. Run your first benchmark:
+3. Quick test (5-7 minutes):
 ```bash
-# MSA benchmark
-python af_bench_runner_updated.py -c myenv.config msa -i 2PV7.json -t 4
+# Test complete pipeline: MSA + Inference
+python runner -c benchmark.config msa -i 2PV7.json -t 1
+python runner -c benchmark.config inference -i 2pv7_data.json -t 1
 
-# Inference benchmark
-python af_bench_runner_updated.py -c myenv.config inference -i 2pv7_data.json -t 4
+# Success = structure files created in results/
 ```
 
 ### For Large Structures (Unified Memory)
 
 ```bash
 # Edit your config file
-nano my_system.config
-# Change: UNIFIED_MEMORY=false
-# To:     UNIFIED_MEMORY=true
+nano benchmark.config
+# Set: ENABLE_UNIFIED_MEMORY=true
 
 # Run 6QNR on RTX 4080
-python af_bench_runner_updated.py -c my_system.config inference -i 6QNR_subset_data.json -t 1
+python runner -c benchmark.config inference -i 6QNR_subset_data.json -t 1
 ```
 
 ## 📖 Documentation
 
-- [Installation Guide](docs/guides/installation.md)
+- [Installation Guide](INSTALL.md) - Detailed setup instructions
+- [Reproduction Guide](REPRODUCE.md) - Reproduce paper results
 - [Configuration Reference](docs/guides/configuration.md)
 - [Unified Memory Guide](docs/guides/unified_memory.md)
-- [Benchmarking Guide](docs/guides/benchmarking.md)
-- [API Reference](docs/api/README.md)
 - [Examples](docs/examples/README.md)
 
 ## 🏗️ Architecture
@@ -84,7 +84,9 @@ AFSysBench/
 ├── runner                           # Main Python orchestrator (executable)
 ├── scripts/
 │   ├── benchmark_msa_modular.sh    # MSA benchmarking logic
-│   └── benchmark_inference_modular.sh # Inference benchmarking
+│   ├── benchmark_inference_modular.sh # Inference benchmarking
+│   ├── profiling_runner.sh         # Profiling orchestrator
+│   └── result_collector.sh         # Results aggregation
 ├── lib/
 │   ├── config.sh                   # Configuration management
 │   ├── docker_utils.sh             # Docker management
@@ -98,35 +100,59 @@ AFSysBench/
 ├── output/                         # MSA results (generated)
 ├── output_inference/               # Inference results (generated)
 ├── results/                        # Aggregated benchmark results
-└── docs/                           # Documentation
+├── monitor_realtime.sh             # Real-time monitoring
+├── run_inference_perf.sh           # Performance benchmarking
+├── run_numa_pcm_profiling.sh       # NUMA/PCM profiling
+├── track_progress.py               # Progress tracking
+├── docs/                           # Documentation
+└── results/                        # Benchmark results (generated)
+>>>>>>> c03d9565c7ff2a3ad9ef8a253ace384cbea77ad1
 ```
 
 ## 🔬 Usage Examples
 
 ### Basic Benchmarking
 ```bash
-# Run MSA benchmark with 8 threads
-python af_bench_runner_updated.py -c myenv.config msa -i rcsb_pdb_7RCE.json -t 8
+# Run MSA benchmark
+python runner -c benchmark.config msa -i rcsb_pdb_7RCE.json -t 8
 
-# Run inference with profiling
-python af_bench_runner_updated.py -c myenv.config inference -i 1yy9_data.json -t 4 -p nsys
+# Run inference benchmark
+python runner -c benchmark.config inference -i 1yy9_data.json -t 4
+
+# Run with profiling
+python runner -c benchmark.config profile -i 1yy9_data.json -p nsys -s inference
+```
+
+### Monitoring and Profiling
+```bash
+# Real-time system monitoring
+./monitor_realtime.sh
+
+# NUMA and PCM profiling
+./run_numa_pcm_profiling.sh myenv.config 2pv7_data.json
+
+# Performance inference benchmarking
+./run_inference_perf.sh myenv.config
+
+# Track progress of running jobs
+python track_progress.py --config myenv.config --job-id inference_2024
 ```
 
 ### Batch Processing
 ```bash
 # Process multiple samples
 for sample in 2PV7 7RCE 1YY9; do
-    python af_bench_runner_updated.py -c myenv.config msa -i ${sample}.json -t 4
+    python runner -c benchmark.config msa -i ${sample}.json -t 4
 done
 ```
 
 ### Large Structure Processing
 ```bash
 # Edit config file to enable unified memory
-nano my_system.config
-# Set: UNIFIED_MEMORY=true
+nano benchmark.config
+# Set: ENABLE_UNIFIED_MEMORY=true
 
-python af_bench_runner_updated.py -c my_system.config inference -i 6QNR_subset_data.json -t 1
+python runner -c benchmark.config inference -i 6QNR_subset_data.json -t 1
 ```
 
 ## 📈 Results
@@ -171,9 +197,34 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- AlphaFold 3 team at DeepMind
+- [AlphaFold 3 team at Google DeepMind](https://github.com/google-deepmind/alphafold3)
 - NVIDIA for unified memory support
 - Contributors and testers
+
+## 📚 Citation
+
+If you use AFSysBench in your research, please cite:
+
+```bibtex
+@article{afsysbench2024,
+  title={AFSysBench: Systematic Benchmarking of AlphaFold 3 for Production Deployment},
+  author={...},
+  journal={...},
+  year={2024}
+}
+```
+
+## 📄 AlphaFold 3 Reference
+
+```bibtex
+@article{alphafold3_2024,
+  title={Accurate structure prediction of biomolecular interactions with AlphaFold 3},
+  author={Abramson, Josh and others},
+  journal={Nature},
+  year={2024},
+  doi={10.1038/s41586-024-07487-w}
+}
+```
 
 ## 📞 Support
 
