@@ -62,14 +62,15 @@ python runner -c benchmark.config inference -i 2pv7_data.json -t 1
 # Success = structure files created in results/
 ```
 
-### For Large Structures (Unified Memory)
+### For Large Structures (Consumer GPUs with Unified Memory)
 
 ```bash
-# Edit your config file
+# Only for desktop/consumer GPUs (≤16GB VRAM) - edit your config file
 nano benchmark.config
 # Set: ENABLE_UNIFIED_MEMORY=true
 
-# Run 6QNR on RTX 4080
+# Run 6QNR on consumer GPUs (e.g., RTX 4080)
+# Note: Server GPUs (H100/A100 ≥80GB) run without unified memory
 python runner -c benchmark.config inference -i 6QNR_subset_data.json -t 1
 ```
 
@@ -139,13 +140,6 @@ python runner -c benchmark.config profile -i 1yy9_data.json -p nsys -s inference
 
 ```
 
-### Large Structure Processing
-```bash
-# Edit config file to enable unified memory
-nano benchmark.config
-# Set: ENABLE_UNIFIED_MEMORY=true
-
-python runner -c benchmark.config inference -i 6QNR_subset_data.json -t 1
 ```
 
 ## 📈 Results
