@@ -193,7 +193,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - [AlphaFold 3 team at Google DeepMind](https://github.com/google-deepmind/alphafold3)
-- NVIDIA for unified memory support
 - Contributors and testers
 
 ## 📚 Citation
@@ -204,7 +203,7 @@ If you use AFSysBench in your research, please cite:
 @misc{afsysbench2025,
   title={AFSysBench: Systematic Benchmarking of AlphaFold 3 for Optimized Deployment},
   author={[To be updated]},
-  year={2024},
+  year={2025},
   note={Manuscript in preparation. Citation details will be updated upon publication.}
 }
 ```
