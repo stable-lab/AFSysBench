@@ -90,8 +90,6 @@ AFSysBench/
 ├── scripts/
 │   ├── benchmark_msa_modular.sh    # MSA benchmarking logic
 │   ├── benchmark_inference_modular.sh # Inference benchmarking
-│   ├── profiling_runner.sh         # Profiling orchestrator
-│   └── result_collector.sh         # Results aggregation
 ├── lib/
 │   ├── config.sh                   # Configuration management
 │   ├── docker_utils.sh             # Docker management
@@ -107,7 +105,6 @@ AFSysBench/
 ├── results/                        # Aggregated benchmark results
 ├── monitor_realtime.sh             # Real-time system monitoring
 ├── run_statistical_benchmarks.sh   # Comprehensive statistical analysis
-├── run_inference_perf.sh           # Performance benchmarking
 ├── run_numa_pcm_profiling.sh       # NUMA/PCM profiling
 ├── run_full_msa_validation.sh      # MSA validation suite
 └── docs/                           # Documentation
