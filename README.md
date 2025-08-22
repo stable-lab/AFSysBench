@@ -104,13 +104,12 @@ AFSysBench/
 ├── output/                         # MSA results (generated)
 ├── output_inference/               # Inference results (generated)
 ├── results/                        # Aggregated benchmark results
-├── monitor_realtime.sh             # Real-time monitoring
+├── monitor_realtime.sh             # Real-time system monitoring
+├── run_statistical_benchmarks.sh   # Comprehensive statistical analysis
 ├── run_inference_perf.sh           # Performance benchmarking
 ├── run_numa_pcm_profiling.sh       # NUMA/PCM profiling
-├── track_progress.py               # Progress tracking
-├── docs/                           # Documentation
-└── results/                        # Benchmark results (generated)
->>>>>>> c03d9565c7ff2a3ad9ef8a253ace384cbea77ad1
+├── run_full_msa_validation.sh      # MSA validation suite
+└── docs/                           # Documentation
 ```
 
 ## 🔬 Usage Examples
