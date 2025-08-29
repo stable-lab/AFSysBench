@@ -5,34 +5,27 @@
 ### System Requirements (AlphaFold 3 + Benchmarking)
 
 #### Minimum Requirements
-- **CPU**: 16 cores
 - **RAM**: 64GB (more needed for large structures)
-- **GPU**: NVIDIA GPU with 16GB+ VRAM
-- **Storage**: 3TB+ for full databases, 100GB+ for testing
-- **OS**: Linux (Ubuntu 20.04/22.04, RHEL 8+, or compatible)
+- **GPU**: NVIDIA GPU with Compute Capability 8.0+ and 16GB+ VRAM (CUDA 12.6 compatible)
+- **Storage**: 630GB+ for full databases (252GB download), 10GB+ for testing (SSD recommended)
+- **OS**: Ubuntu 22.04 LTS (recommended by AlphaFold 3 team)
 
 #### Recommended for Production
-- **CPU**: 32+ cores (for MSA generation)
 - **RAM**: 128GB+ (256GB for very large complexes)
-- **GPU**: NVIDIA A100 (40GB) or better
-- **Storage**: 4TB+ SSD for databases
-- **Network**: High-speed for database downloads
+- **GPU**: NVIDIA A100 (80GB) or H100 (80GB) recommended (CUDA 12.6 compatible)
+- **Storage**: 4TB+ SSD for databases (630GB required minimum)
 
 ### Software Requirements
 
 #### AlphaFold 3 Requirements
 - **Python**: 3.10+ (AF3 requires Python 3.10 or later)
-- **JAX**: 0.4.25+ with CUDA support
-- **Docker**: 20.10+ or Singularity 3.8+
-- **NVIDIA Driver**: 525.60.13+ (CUDA 12.0 compatible)
-- **CUDA**: 12.0+ (for JAX compatibility)
-- **cuDNN**: 8.9+
+- **Docker**: Latest version recommended
+- **NVIDIA Driver**: 550.120+ (CUDA 12.6 compatible)
 - **Git**: For repository cloning
 
 #### AFSysBench Requirements
 - **Python**: 3.10+ (matching AF3, standard library only for benchmarking)
 - **Bash**: 4.0+ (for scripts)
-- **Standard Linux tools**: grep, awk, sed, etc.
 
 ## AlphaFold 3 Setup
 
@@ -78,8 +71,8 @@ Follow the official instructions at: https://github.com/google-deepmind/alphafol
 
 **Important**: 
 - Model weights require accepting the license terms
-- Database download can take several hours (>1TB of data)
-- Ensure you have sufficient storage space (3-4TB recommended)
+- Database download can take ~45 minutes (252GB download, 630GB when unzipped)
+- Ensure you have sufficient storage space and permissions (chmod 755)
 
 ### 5. Verify AlphaFold 3 installation
 
